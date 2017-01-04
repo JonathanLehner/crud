@@ -43,7 +43,7 @@
          </ul>
           <ul class="nav navbar-nav navbar-right nav_top">
             <li {% if request.path == profile %} class="active" {% endif %}><a  href="{{ profile }}">Profile</a></li>
-            <li><a  href="/accounts/logout/">Logout</a></li>
+            <li><a  href="/accounts/logout/"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
           </ul>
         {% else %}
          <ul class="nav navbar-nav">
@@ -58,8 +58,10 @@
       </div>
   </nav>
 
+<div class="container">
 {% block content %}
     <p>Coderfit is the best website in the world!</p>
 {% endblock %}
+</div>
  </body>
 </html>
