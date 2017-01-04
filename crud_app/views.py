@@ -41,24 +41,24 @@ def index(request):
         job_form = JobForm()
         company_form = CompanyForm()
 
-    return render(request, 'cf_app/company_reg.html', {'job_form': job_form, 'company_form': company_form})
+    return render(request, 'crud_app/company_reg.html', {'job_form': job_form, 'company_form': company_form})
 
 
 def match(request, keyword):
     c = Company.objects.filter(notes__icontains=keyword)
     ca = CandidateProfile.objects.filter(notes__icontains=keyword)
 
-    return render(request, 'cf_app/match.html', {'companies': c, "candidates": ca})
+    return render(request, 'crud_app/match.html', {'companies': c, "candidates": ca})
 
 
 def index2(request, message):
 
-    return render(request, 'cf_app/base.html', {'message': message})
+    return render(request, 'crud_app/base.html', {'message': message})
 
 
 def about(request):
 
-    return render(request, 'cf_app/base.html')
+    return render(request, 'crud_app/base.html')
 
 
 class CompanyView(DetailView):
@@ -125,7 +125,7 @@ class CompanyList(ListView):
 
 class CompanySearchList(ListView):
 
-    template_name = 'cf_app/company_list.html'
+    template_name = 'crud_app/company_list.html'
 
     def get_queryset(self):
         c = Company.objects.filter(name__contains=self.args[0])
@@ -162,7 +162,7 @@ class CandidateListApi(generics.ListAPIView):
 
 class CandidateList(ListView):
 
-    template_name = 'cf_app/candidate_list.html'
+    template_name = 'crud_app/candidate_list.html'
 
     model = CandidateProfile
 
@@ -174,7 +174,7 @@ class CandidateList(ListView):
 
 class CandidateSearchList(ListView):
 
-    template_name = 'cf_app/candidate_list.html'
+    template_name = 'crud_app/candidate_list.html'
 
     def get_queryset(self):
         c = CandidateProfile.objects.filter(name__contains=self.args[0])

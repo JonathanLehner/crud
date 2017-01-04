@@ -1,4 +1,4 @@
-cf/__pycache__/*
-cf_app/__pycache__/*
+crud/__pycache__/*
+crud_app/__pycache__/*
 *.pyc
 .idea/

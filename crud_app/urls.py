@@ -25,13 +25,12 @@ router.register(r'jobs', views.JobViewSet)
 
 urlpatterns = [
     url(r'^$', views.about, name='index'),
-    url(r'^about/$', views.about, name='about'),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     url(r'^cms/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
-    url(r'^pages/', include(wagtail_urls)),
+    url(r'^about/', include(wagtail_urls)),
 
     url(r'^company/(?P<pk>[0-9]+)/$', CompanyView.as_view(), name='company-detail'),
     url(r'^job/(?P<pk>[0-9]+)/$', JobView.as_view(), name='cf-job-detail'),
@@ -49,13 +48,13 @@ urlpatterns = [
 
     url(r'^company_registration/$', login_required(views.index), name='company_registration'),
     url(r'^get_jobs_from_web', staff_member_required(views.get_jobs_from_web), name='get_jobs_from_web'),
-    url(r'^company_registration_info/$', TemplateView.as_view(template_name='cf_app/company_reg_info.html'), name='company_reg_info'),  #TemplateView.as_view(template_name='company_reg_info.html'
+    url(r'^company_registration_info/$', TemplateView.as_view(template_name='crud_app/company_reg_info.html'), name='company_reg_info'),  #TemplateView.as_view(template_name='company_reg_info.html'
     url(r'^msg/(?P<message>[\w{}.-]{1,40})/$', views.index2, name='index2'),
 
     url(r'^api/', include(router.urls)),
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's serving mechanism
-    # url(r'', include(wagtail_urls)),   we don't need this
+    url(r'', include(wagtail_urls)),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

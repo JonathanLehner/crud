@@ -12,7 +12,7 @@
 
 </head>
 <body>
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav_top">
@@ -20,11 +20,11 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{% url 'index' %}">Coderfit</a>
+      <a class="navbar-brand" href="{% url 'index' %}">Crud</a>
     </div>
      <div class="collapse navbar-collapse" id="nav_top">
          <ul class="nav navbar-nav">
-          <li {% if request.path == '/pages/about/' %} class="active" {% endif %}><a  href="/pages/about">About</a></li>
+          <li {% if request.path == '/about/' %} class="active" {% endif %}><a  href="/about">About</a></li>
          </ul>
         {% if user.is_authenticated %}
          <ul class="nav navbar-nav">
@@ -47,7 +47,6 @@
           </ul>
         {% else %}
          <ul class="nav navbar-nav">
-          <!--<li><a  href="{% url 'about' %}">About</a></li>-->
            {% if user.is_authenticated %}<p class="navbar-text">Welcome {{ request.user.get_username }}</p>{% else %}<p class="navbar-text">Welcome User! Please consider registering/signing up! </p>{% endif %}
          </ul>
           <ul class="nav navbar-nav navbar-right">
