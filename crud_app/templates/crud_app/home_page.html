@@ -1,0 +1,10 @@
+{% extends "cf_app/base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block content %}
+    {{ page.title|richtext }}
+    {{ page.body|richtext }}
+{% endblock %}

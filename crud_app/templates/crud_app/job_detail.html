@@ -1,0 +1,19 @@
+{% extends "cf_app/base.html" %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Job-detail</title>
+</head>
+<body>
+{% block content %}
+    <p>{{ object.job_title }}</p>
+    <p><a href="#">Like</a> <a href="#">Don't like</a></p>
+{% endblock %}
+</body>
+</html>

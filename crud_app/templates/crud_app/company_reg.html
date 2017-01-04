@@ -1,0 +1,118 @@
+{% extends "cf_app/base.html" %}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Job-detail</title>
+</head>
+<body>
+{% block content %}
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home">Add job</a></li>
+        <li><a data-toggle="tab" href="#menu1">Add company</a></li>
+    </ul>
+    <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+        <div id="job_reg_success" style="display: none;" class="alert alert-success alert-dismissible">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              <strong>Success!</strong> The job <span id="reg_job_name">xyz</span> was successfully added.
+        </div>
+        <div class="container-fluid">
+            <h2>Add a job</h2>
+            <form id="_new-job" action="/api/jobs/" method="post" class="form-horizontal">
+                {% csrf_token %}
+                {% for field in job_form %}
+                <div class="fieldWrapper form-group">
+                    {{ field.errors }}
+                    <label for="{{ field.id_for_label }}" class="control-label col-sm-1">{{ field.label }}:</label>
+                    <div class="col-sm-11">{{ field }}</div>
+                    {% if field.help_text %}
+                    <p class="help">{{ field.help_text|safe }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-11">
+                      <button type="submit" class="btn btn-primary">{% bootstrap_icon "star" %} Add</button>
+                      <script>
+                          $("#_new-job").submit(function(e){
+                            e.preventDefault();
+                            $.ajax({
+                                url: "/api/jobs/",
+                                dataType: "json",
+                                method:'POST',
+                                data: $('#_new-job').serializeArray(),
+                                success: function(result){
+                                    console.log(result);
+                                    $('html, body').animate({
+                                      scrollTop: 0
+                                    }, 1000);
+                                    $('#reg_job_name').text(result.job_title);
+                                    $('#job_reg_success').show();
+                                        }
+                                 });
+                            });
+
+                      </script>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="menu1" class="tab-pane fade">
+                <div id="company_reg_success" style="display: none;" class="alert alert-success alert-dismissible">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                  <strong>Success!</strong> The company <span id="reg_company_name">xyz</span> was successfully added.
+                </div>
+                <div class="container-fluid">
+                  <h2>Company registration</h2>
+                  <form id="company_reg_form" action="/" method="post" class="form-horizontal">
+                    {% csrf_token %}
+                     {% for field in company_form %}
+                    <div class="fieldWrapper form-group">
+                        {{ field.errors }}
+                        <label for="{{ field.id_for_label }}" class="control-label col-sm-1">{{ field.label }}:</label>
+                        <div class="col-sm-11">{{ field }}</div>
+                        {% if field.help_text %}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                    <div class="form-group">
+                        <div class="col-sm-offset-1 col-sm-11">
+                          <button id="submit_company_reg" type="submit" class="btn btn-primary">{% bootstrap_icon "star" %} Register</button>
+                          <script>
+                              $("#company_reg_form").submit(function(e){
+                                e.preventDefault();
+                                $.ajax({
+                                    url: "/api/companies/",
+                                    dataType: "json",
+                                    method:'POST',
+                                    data: $('#company_reg_form').serializeArray(),
+                                    success: function(result){
+                                        console.log(result);
+                                        $('html, body').animate({
+                                          scrollTop: 0
+                                        }, 1000);
+                                        $('#reg_company_name').text(result.name);
+                                        $('#company_reg_success').show();
+                                            }
+                                     });
+                                });
+
+                          </script>
+                        </div>
+                    </div>
+                  </form>
+                </div>
+        </div>
+
+
+
+{% endblock %}
+</body>
+</html>

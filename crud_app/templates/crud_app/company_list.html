@@ -1,0 +1,61 @@
+{% extends "cf_app/base.html" %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery=1 %}
+{% bootstrap_messages %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Company-list</title>
+</head>
+<body>
+{% block content %}
+ <div class="container col-sm-offset-1 col-sm-7">
+     <form id="search">
+      <div class="input-group col-sm-3">
+        <input id="search_input" name="search" type="text" class="form-control" placeholder="Search">
+        <div class="input-group-btn">
+          <button class="btn btn-default" type="submit">
+            <i class="glyphicon glyphicon-search"></i>
+          </button>
+        <script>
+              $("#search").keyup(function(e){
+                $.ajax({
+                    url: "/companies_api/",
+                    dataType: "json",
+                    method:'GET',
+                    data: $('#search_input').serialize(),
+                    success: function(result) {
+                        xyz = result;
+                        console.log(result);
+                        $('#companies_list li').remove();
+                        for(var i=0; i<result.length; i++){
+                            console.log(result[i]);
+                            $li = $('<li>');
+                            $li.text(result[i].name + " - "+result[i].notes);
+                            //$li.text("1234 - ");
+                            $('#companies_list').append($li);
+                        }
+                    }
+                     });
+                });
+                $("#search").submit(function(e){
+                    e.preventDefault();
+                });
+          </script>
+        </div>
+      </div>
+    </form>
+    <ol id="companies_list">
+        {% for object in object_list %}
+        <li>{{ object.name }} - {{ object.notes }}</li>
+        {% empty %}
+        <li>No companies yet.</li>
+        {% endfor %}
+    </ol>
+ </div>
+{% endblock %}
+</body>
+</html>

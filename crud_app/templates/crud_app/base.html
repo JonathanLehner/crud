@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <meta charset="utf-8">
+  <title>{% block title %}Coderfit{% endblock %}</title>
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery=1 %}
+{% bootstrap_messages %}
+<link rel="stylesheet" type="text/css" href="{% static 'job_list.css' %}"/>
+
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav_top">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{% url 'index' %}">Coderfit</a>
+    </div>
+     <div class="collapse navbar-collapse" id="nav_top">
+         <ul class="nav navbar-nav">
+          <li {% if request.path == '/pages/about/' %} class="active" {% endif %}><a  href="/pages/about">About</a></li>
+         </ul>
+        {% if user.is_authenticated %}
+         <ul class="nav navbar-nav">
+          {% url 'company_registration' as company_registration %}
+          {% url 'cf-job-detail' pk=1 as cf_job_detail %}
+          {% url 'companies' as companies_url %}
+          {% url 'candidates' as candidates_url %}
+          {% url 'cf-job-list' as cf_job_list %}
+          {% url 'profile' pk=1 as profile %}
+
+          <li {% if request.path == company_registration %} class="active" {% endif %}><a  href="{{ company_registration }}">Add</a></li>
+          <li {% if request.path == cf_job_detail %} class="active" {% endif %}><a  href="{{ cf_job_detail }}">Quickmatch</a></li>
+          <li {% if request.path == companies_url %} class="active" {% endif %}><a  href="{{ companies_url }}">Companylist</a></li>
+          <li {% if request.path == candidates_url %} class="active" {% endif %}><a  href="{{ candidates_url }}">Candidatelist</a></li>
+          <li {% if request.path == cf_job_list %} class="active" {% endif %}><a  href="{{ cf_job_list }}">Joblist</a></li>
+         </ul>
+          <ul class="nav navbar-nav navbar-right nav_top">
+            <li {% if request.path == profile %} class="active" {% endif %}><a  href="{{ profile }}">Profile</a></li>
+            <li><a  href="/accounts/logout/">Logout</a></li>
+          </ul>
+        {% else %}
+         <ul class="nav navbar-nav">
+          <!--<li><a  href="{% url 'about' %}">About</a></li>-->
+           {% if user.is_authenticated %}<p class="navbar-text">Welcome {{ request.user.get_username }}</p>{% else %}<p class="navbar-text">Welcome User! Please consider registering/signing up! </p>{% endif %}
+         </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/accounts/signup/"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="/accounts/login/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          </ul>
+       </div>
+    {% endif %}
+      </div>
+  </nav>
+
+{% block content %}
+    <p>Coderfit is the best website in the world!</p>
+{% endblock %}
+ </body>
+</html>

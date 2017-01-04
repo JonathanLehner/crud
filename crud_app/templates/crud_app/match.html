@@ -1,0 +1,34 @@
+{% extends "cf_app/base.html" %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery=1 %}
+{% bootstrap_messages %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Match-list</title>
+</head>
+<body>
+{% block content %}
+<div class="container-fluid">
+<h2>Matches</h2>
+<ol>
+    {% for object in companies %}
+    <li>{{ object.name }} -- {{ object.notes }}</li>
+    {% empty %}
+    <li>No companies yet.</li>
+    {% endfor %}
+</ol>
+<ol>
+    {% for object in candidates %}
+    <li>{{ object.name }} -- {{ object.notes }}</li>
+    {% empty %}
+    <li>No candidates yet.</li>
+    {% endfor %}
+</ol>
+</div>
+{% endblock %}
+</body>
+</html>

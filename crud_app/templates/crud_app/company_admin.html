@@ -1,0 +1,50 @@
+{% extends "cf_app/base.html" %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery=1 %}
+{% bootstrap_messages %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Company admin</title>
+</head>
+<body>
+{% block content %}
+  <div class="section">
+    <p>
+    {% if form %}
+      <form action="/" method="post" class="form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button type="submit" class="btn btn-primary">
+                {% bootstrap_icon "star" %} Submit
+            </button>
+        {% endbuttons %}
+      </form>
+    {% elif message %}
+      <h1>{{ message }}</h1>
+    {% endif %}
+
+
+    {% if form %}
+      <form action="/" method="post" class="form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button type="submit" class="btn btn-primary">
+                {% bootstrap_icon "star" %} Submit
+            </button>
+        {% endbuttons %}
+      </form>
+    {% elif message %}
+      <h1>{{ message }}</h1>
+    {% endif %}
+
+    </p>
+  </div>
+{% endblock %}
+</body>
+</html>
