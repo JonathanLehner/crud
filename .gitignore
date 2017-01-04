@@ -2,5 +2,3 @@ cf/__pycache__/*
 cf_app/__pycache__/*
 *.pyc
 .idea/
-venv
-osvars.env
